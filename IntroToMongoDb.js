@@ -6,12 +6,16 @@ const databaseName = "mydb"
 
 // Important: In MongoDB, a database is not created until it gets content!
 // a collection in mongodb is same as table in sql
+
+// To insert a record, or document as it is called in MongoDB, into a collection, we use the insertOne() method.
+// A document in MongoDB is the same as a record in MySQL
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   let dbo = db.db(databaseName)
-  dbo.createCollection("customers", function(err, res){
-    if(err) throw err
-    console.log("collection created")
+  let myObj = {name: "Company Inc", address: "Highway 37"};
+  dbo.collection("customers").insertOne(myObj, function(err, res){
+    if(err) throw err;
+    console.log("1 document inserted");
     db.close();
-  })
+  });
 });
