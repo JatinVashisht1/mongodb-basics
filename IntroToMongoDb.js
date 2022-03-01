@@ -30,7 +30,7 @@ MongoClient.connect(url, function(err, db) {
     { name: 'Viola', address: 'Sideway 1633'}];
   dbo.collection("customers").insertMany(myObj, function(err, res){
     if(err) throw err;
-    console.log("1 document inserted");
+    console.log("many documents inserted");
     db.close();
   });
 });
