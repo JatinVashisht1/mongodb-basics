@@ -31,6 +31,9 @@ MongoClient.connect(url, function(err, db) {
   dbo.collection("customers").insertMany(myObj, function(err, res){
     if(err) throw err;
     console.log("many documents inserted");
+    // res is the result object and it returns info about document inserted
+    // an example is below statement
+    console.log(`inserted count is ${res.insertedCount}`);
     db.close();
   });
 });
