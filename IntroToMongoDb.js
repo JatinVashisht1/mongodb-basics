@@ -15,7 +15,7 @@ MongoClient.connect(url, function (err, db) {
   if (err) throw err;
   var dbo = db.db(databaseName);
   // Filter the Result 🙂
-  //   When finding documents in a collection, you can filter the result by using a query object.
+  // When finding documents in a collection, you can filter the result by using a query object.
   // The first argument of the find() method is a query object, and is used to limit the search.
   var query = { address: "Park Lane 38" };
   dbo.collection("customers").find(query).toArray(function(err, res){
