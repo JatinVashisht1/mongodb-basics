@@ -18,7 +18,7 @@ MongoClient.connect(url, function (err, db) {
   // Deletion in mongodb 🙂🙂
 
   // Delete document 🙂
-  var query = {adress: "Mountain 21"};
+  let query = {adress: "Mountain 21"};
   // Delete one (first) occurence ✌
   dbo.collection("customers").deleteOne(query, function(err, res){
     if(err) throw err;
@@ -26,6 +26,7 @@ MongoClient.connect(url, function (err, db) {
     // db.close();
   });
 
+  // Delete Many 🙂
   query = {address: /^S/}
   dbo.collection("customers").deleteMany(query, function(err, obj){
     if(err) throw err;
