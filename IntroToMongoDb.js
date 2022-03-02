@@ -15,28 +15,29 @@ MongoClient.connect(url, function (err, db) {
   if (err) throw err;
   let dbo = db.db(databaseName);
 
-  // Deletion in mongodb 🙂🙂
+  // Drop collection 🙂
 
-  // Delete document 🙂
-  let query = {adress: "Mountain 21"};
-  // Delete one (first) occurence ✌
-  dbo.collection("customers").deleteOne(query, function(err, res){
-    if(err) throw err;
-    console.log("1 document deleted");
+  // Method 1 ✌
+  // You can delete a table, or collection as it is called in MongoDB, 
+  // by using the drop() method.
+  dbo.collection("customers").drop(function (err, delOk) {
+    if (err) throw err;
+    if (delOk) console.log("Collection deleted");
+
+    // delOk is a boolean
+    console.log(`delOk object is ${delOk}`)
     // db.close();
-  });
+  })
 
-  // Delete Many 🙂
-  query = {address: /^S/}
-  dbo.collection("customers").deleteMany(query, function(err, obj){
-    if(err) throw err;
-    console.log("documents deleted!");
-
-    // The deleteMany() method returns an object, 
-    // which contains information about how the execution affected the database.
-    console.log(obj);
-    // You can use this object to return the number of deleted documents:
-    console.log(obj.res, " documents(s) deleted");
+  // Method 2 ✌
+  // You can also use the dropCollection() method to delete a table (collection).
+  // The dropCollection() method takes two parameters: the name of the collection and a callback function.
+  // Note: if you ran the Method 1 already, then this command will give error but this is also a method to delete collection.
+  dbo.dropCollection("customers", function (err, delOk) {
+    if (err) throw err;
+    if (delOk) console.log("Collection deleted")
+    console.log("deOk is ", delOk);
     db.close();
-  });
+  })
+
 });
