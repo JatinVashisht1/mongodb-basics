@@ -15,14 +15,27 @@ MongoClient.connect(url, function (err, db) {
   if (err) throw err;
   let dbo = db.db(databaseName);
 
-  // Sorting 🙂
-  // to sort in ascending order provide sort arg. 1 ✌
-  // to sort in descending order provide sort arg. -1 ✌
-  let mySort = {name: 1};
-  dbo.collection("customers").find().sort(mySort).toArray(function(err, res){
-    if (err) throw err;
-    console.log(res);
-    db.close();
+  // Deletion in mongodb 🙂🙂
+
+  // Delete document 🙂
+  var query = {adress: "Mountain 21"};
+  // Delete one (first) occurence ✌
+  dbo.collection("customers").deleteOne(query, function(err, res){
+    if(err) throw err;
+    console.log("1 document deleted");
+    // db.close();
   });
 
+  query = {address: /^S/}
+  dbo.collection("customers").deleteMany(query, function(err, obj){
+    if(err) throw err;
+    console.log("documents deleted!");
+
+    // The deleteMany() method returns an object, 
+    // which contains information about how the execution affected the database.
+    console.log(obj);
+    // You can use this object to return the number of deleted documents:
+    console.log(obj.res, " documents(s) deleted");
+    db.close();
+  });
 });
