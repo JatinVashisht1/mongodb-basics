@@ -13,27 +13,15 @@ const databaseName = "mydb"
 
 MongoClient.connect(url, function (err, db) {
   if (err) throw err;
-  var dbo = db.db(databaseName);
-  // Filter the Result 🙂
-  // When finding documents in a collection, you can filter the result by using a query object.
-  // The first argument of the find() method is a query object, and is used to limit the search.
-  var query = { address: "Park Lane 38" };
-  dbo.collection("customers").find(query).toArray(function(err, res){
-    if(err) throw err;
+  let dbo = db.db(databaseName);
+
+  // Sorting 🙂
+  // to sort in ascending order provide sort arg. 1 ✌
+  // to sort in descending order provide sort arg. -1 ✌
+  let mySort = {name: 1};
+  dbo.collection("customers").find().sort(mySort).toArray(function(err, res){
+    if (err) throw err;
     console.log(res);
-    // db.close();
-  });
-
-  // Filter with Regular Expressions 🙂
-  // Reqular expressions can only be used to query strings,
-  // You can write regular expressions to find exactly what you are searching for.
-
-  // this will return all the addresses starting with 'S'
-  query = { address: /^S/ };
-  dbo.collection("customers").find(query, {projection: {_id:0}}).toArray(function(err, res){
-    if(err) throw err;
-    // JSON.stringigy(*js array*) converts "js array" to JSON object 🔥
-    console.log(JSON.stringify(res));
     db.close();
   });
 
